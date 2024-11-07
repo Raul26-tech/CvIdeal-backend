@@ -5,9 +5,9 @@
     "dev": "ts-node-dev --env-file=.env --respawn --transpile-only src/framework/http/server.ts",
     "build": "rm -rf dist && tsc && tsc-alias",
     "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "migration:run": "ENVIRONMENT=local yarn build && ENVIRONMENT=local ts-node ./node_modules/typeorm/cli.js migration:run -d dist/db/connection.db.js",
-    "migration:show": "ENVIRONMENT=local yarn build && ENVIRONMENT=local ts-node ./node_modules/typeorm/cli.js migration:show -d dist/db/connection.db.js",
-    "migration:revert": "ENVIRONMENT=local yarn build && ENVIRONMENT=local ts-node ./node_modules/typeorm/cli.js migration:revert -d dist/db/connection.db.js"
+    "migration:run": "ENVIRONMENT=local yarn build && ENVIRONMENT=local ts-node ./node_modules/typeorm/cli.js migration:run -d dist/db/connect.db.js",
+    "migration:show": "ENVIRONMENT=local yarn build && ENVIRONMENT=local ts-node ./node_modules/typeorm/cli.js migration:show -d dist/db/connect.db.js",
+    "migration:revert": "ENVIRONMENT=local yarn build && ENVIRONMENT=local ts-node ./node_modules/typeorm/cli.js migration:revert -d dist/db/connect.db.js"
   },
   "dependencies": {
     "@types/express": "^5.0.0",
