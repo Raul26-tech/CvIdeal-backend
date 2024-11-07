@@ -6,3 +6,4 @@ node_modules/
 # Arquivos de ambiente
 .env
 .env.prod
+.env.exemple
