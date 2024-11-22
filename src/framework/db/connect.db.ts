@@ -1,39 +1,34 @@
+import environment from "@config/environment";
 import { DataSource } from "typeorm";
-import env from "env-var";
-import dotenv from "dotenv";
 
 let entitiesPath = "";
 let migrationsPath = "";
 
 switch (process.env.ENVIRONMENT) {
   case "dev":
-    entitiesPath = "dist/modules/**/entities/*.js";
-    migrationsPath = "dist/framework/db/migrations/*.js";
-    break;
-  case "prod":
-    entitiesPath = "./dist/modules/**/entities/*.js";
-    migrationsPath = "dist/framework/db/migrations/*.js";
-    break;
-  case "local":
     entitiesPath = "src/modules/**/entities/*.ts";
     migrationsPath = "src/framework/db/migrations/*.ts";
     break;
+  case "prod":
+    entitiesPath = "dist/modules/**/entities/*.js";
+    migrationsPath = "dist/db/migrations/*.js";
+    break;
+  case "local":
+    entitiesPath = "dist/modules/**/entities/*.js";
+    migrationsPath = "dist/framework/db/migrations/*.js";
+    break;
 }
 
-// Leitura das variáveis de ambiemte
-// Está solução será provisioria, como ts-node não aceita o --env-file
-// o dotenv será a opção primaria para configuração
-dotenv.config({ path: ".env" });
-
 export const AppDataSource = new DataSource({
-  type: "postgres",
-  host: env.get("DB_HOST").required().asString(),
-  port: env.get("DB_PORT").required().asPortNumber(),
-  username: env.get("DB_USERNAME").required().asString(),
-  password: env.get("DB_PASSWORD").required().asString(),
-  database: env.get("DB_DATABASE").required().asString(),
-  migrations: [migrationsPath],
+  type: environment.DB_TYPE,
+  port: environment.DB_PORT,
+  host: environment.DB_HOST,
+  username: environment.DB_USERNAME,
+  password: environment.DB_PASSWORD,
+  database: environment.DB_DATABASE,
   entities: [entitiesPath],
+  migrations: [migrationsPath],
+  logging: environment.DB_LOGGING,
 });
 
 export const connectDatabase = async () => {

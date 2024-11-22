@@ -1,11 +1,13 @@
 FROM node:20-alpine
 
-WORKDIR /src
+ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.12.1/wait /wait
 
-COPY package.json ./
+RUN chmod +x /wait
 
-RUN yarn 
+WORKDIR /usr/src
 
-COPY . .
+COPY package*.json ./
 
-CMD [ "yarn", "dev" ]
+RUN yarn install --silent
+
+COPY . . 
