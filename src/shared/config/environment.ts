@@ -1,4 +1,4 @@
-import dotenv from "dotenv";
+import { config } from "dotenv";
 import * as env from "env-var";
 
 interface IEnvironment {
@@ -6,7 +6,9 @@ interface IEnvironment {
   PORT: number;
   DB_TYPE: "postgres";
   DB_PORT: number;
+  DB_EXTERNAL_PORT: number;
   DB_HOST: string;
+  DB_EXTERNAL_HOST: string;
   DB_USERNAME: string;
   DB_PASSWORD: string;
   DB_DATABASE: string;
@@ -15,13 +17,13 @@ interface IEnvironment {
 
 switch (process.env.ENVIRONMENT) {
   case "test":
-    dotenv.config({ path: ".env.test" });
+    config({ path: ".env.test" });
     break;
   case "local":
-    dotenv.config({ path: ".env" });
+    config({ path: ".env" });
     break;
   default:
-    dotenv.config({ path: ".env" });
+    config({ path: ".env" });
 }
 
 export default {
@@ -29,7 +31,9 @@ export default {
   PORT: env.get("PORT").required().asPortNumber(),
   DB_TYPE: env.get("DB_TYPE").required().asString(),
   DB_PORT: env.get("DB_PORT").required().asPortNumber(),
+  DB_EXTERNAL_PORT: env.get("DB_EXTERNAL_PORT").required().asPortNumber(),
   DB_HOST: env.get("DB_HOST").required().asString(),
+  DB_EXTERNAL_HOST: env.get("DB_EXTERNAL_HOST").required().asString(),
   DB_USERNAME: env.get("DB_USERNAME").required().asString(),
   DB_PASSWORD: env.get("DB_PASSWORD").required().asString(),
   DB_DATABASE: env.get("DB_DATABASE").required().asString(),
