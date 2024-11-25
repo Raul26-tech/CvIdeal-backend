@@ -1,5 +1,5 @@
-import environment from "@config/environment";
 import { DataSource } from "typeorm";
+import environment from "../../config/environment";
 
 let entitiesPath = "";
 let migrationsPath = "";
@@ -19,10 +19,19 @@ switch (process.env.ENVIRONMENT) {
     break;
 }
 
+const host =
+  process.env.ENVIRONMENT === "local"
+    ? process.env.DB_EXTERNAL_HOST
+    : process.env.DB_HOST;
+const port =
+  process.env.ENVIRONMENT === "local"
+    ? Number(process.env.DB_EXTERNAL_PORT)
+    : Number(process.env.DB_PORT);
+
 export const AppDataSource = new DataSource({
   type: environment.DB_TYPE,
-  port: environment.DB_PORT,
-  host: environment.DB_HOST,
+  host: host,
+  port,
   username: environment.DB_USERNAME,
   password: environment.DB_PASSWORD,
   database: environment.DB_DATABASE,
