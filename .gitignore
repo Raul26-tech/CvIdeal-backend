@@ -1,8 +1,7 @@
-# Diretórios
-postgres-data/
-dist/
-node_modules/
+/node_modules
 
-# Arquivos de ambiente
+
+/dist
+/coverage
+
 .env
-.env.prod

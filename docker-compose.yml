@@ -1,26 +1,32 @@
 networks:
-  cv-ideal-network:
+  cv-ideal:
+    name: cv-ideal
     driver: bridge
+
 
 services:
   backend:
     container_name: cvIdeal_api
     restart: always
-    env_file:
-      - .env
+    env_file: .env
     build: .
     ports:
       - ${PORT}:${PORT}
     networks:
-      - cv-ideal-network
+      - cv-ideal
+    environment:
+      WAIT_HOSTS: database:${DB_PORT}
+      WAIT_TIMEOUT: 600
+      WAIT_SLEEP_INTERVAL: 10
     command: >
-      sh -c "yarn dev"
-    volumes:
-      - ./:/src 
-      - ./node_modules:/src/node_modules
+      sh -c "
+      /wait && 
+      yarn ${ENVIRONMENT}"
     depends_on:
       - database
-  
+    volumes:
+      - ./:/usr/src
+      - ./node_modules:/usr/src/node_modules
 
   database:
     container_name: cvIdeal_database
@@ -29,13 +35,12 @@ services:
     env_file:
       - .env 
     ports:
-      - ${DB_PORT}:${DB_PORT}
+      - ${DB_EXTERNAL_PORT}:${DB_PORT}
+    networks:
+      - cv-ideal
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_USER: ${DB_USERNAME}
       POSTGRES_DATABASE: ${DB_DATABASE} 
-    networks:
-      - cv-ideal-network
     command: -p ${DB_PORT}
-    volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+    
