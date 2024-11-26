@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import environment from "../../config/environment";
+import environment from "../../shared/config/environment";
 
 let entitiesPath = "";
 let migrationsPath = "";
