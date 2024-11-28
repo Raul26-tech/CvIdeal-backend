@@ -14,14 +14,7 @@ services:
       - ${PORT}:${PORT}
     networks:
       - cv-ideal
-    environment:
-      WAIT_HOSTS: database:${DB_PORT}
-      WAIT_TIMEOUT: 600
-      WAIT_SLEEP_INTERVAL: 10
-    command: >
-      sh -c "
-      /wait && 
-      yarn ${ENVIRONMENT}"
+    command: yarn dev
     depends_on:
       - database
     volumes:
@@ -39,8 +32,7 @@ services:
     networks:
       - cv-ideal
     environment:
+      POSTGRES_DB: ${DB_DATABASE} 
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_USER: ${DB_USERNAME}
-      POSTGRES_DATABASE: ${DB_DATABASE} 
-    command: -p ${DB_PORT}
     
