@@ -25,12 +25,6 @@ export class User {
   @Column({ name: "status", type: "varchar" })
   status: "active" | "inactive";
 
-  @Column({ name: "cpf", type: "varchar" })
-  cpf: string;
-
-  @Column({ name: "cell_phone", type: "varchar" })
-  cellPhone: string;
-
   @Column({ name: "phone", type: "varchar" })
   phone: string;
 

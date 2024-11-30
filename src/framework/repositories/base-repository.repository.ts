@@ -1,7 +1,8 @@
-import { inject, optional } from "inversify";
 import { DataSource, EntityManager } from "typeorm";
 import { AppDataSource } from "../db/connect.db";
+import { inject, injectable, optional } from "inversify";
 
+@injectable()
 export class BaseRepository {
   protected datasource: DataSource | EntityManager;
 
@@ -10,6 +11,6 @@ export class BaseRepository {
     @optional()
     private manager?: EntityManager
   ) {
-    this.datasource = this.manager ? this.manager : AppDataSource;
+    this.datasource = this.manager || AppDataSource;
   }
 }
