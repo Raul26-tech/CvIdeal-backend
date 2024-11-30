@@ -1,5 +1,7 @@
 import { DataSource } from "typeorm";
 import { config } from "dotenv";
+import { User } from "@modules/user/entities/user.entity";
+import { Task } from "@modules/task/entities/task.entity";
 
 config();
 
@@ -10,7 +12,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_DATABASE,
-  entities: [`${__dirname}/../**/entities/*.entity{.ts, .js}`],
+  entities: [User, Task],
   migrations: [`${__dirname}/migrations/*{.ts,.js}`],
 });
 

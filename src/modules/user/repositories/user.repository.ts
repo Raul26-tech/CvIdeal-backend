@@ -1,16 +1,37 @@
+import { DeepPartial } from "./../../../../node_modules/typeorm/common/DeepPartial.d";
 import { injectable } from "inversify";
-import { BaseRepository } from "src/framework/repositories/base-repository.repository";
-import { EntityManager, Repository } from "typeorm";
+import { Repository } from "typeorm";
 import { User } from "../entities/user.entity";
+import { CreateUserDto } from "../dtos/create-user.dto";
+import { AppDataSource } from "src/framework/db/connect.db";
 
 @injectable()
-export class UserRepository extends BaseRepository {
+export class UserRepository {
   private repository: Repository<User>;
 
-  constructor(manager?: EntityManager) {
-    super(manager);
-    this.repository = this.datasource.getRepository(User);
+  constructor() {
+    this.repository = AppDataSource.getRepository(User);
   }
 
-  async create() {}
+  async create(userData: DeepPartial<CreateUserDto>) {
+    const user = this.repository.create(userData);
+
+    return await this.repository.save(user);
+  }
+
+  async findByEmail(email: string) {
+    const user = await this.repository.findOne({
+      where: { email },
+    });
+
+    return user;
+  }
+
+  async findById(id: string) {
+    const user = await this.repository.findOne({
+      where: { id },
+    });
+
+    return user;
+  }
 }
