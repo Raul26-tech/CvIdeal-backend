@@ -31,4 +31,4 @@ redisClient.on("error", (err) => {
   console.error("Error connecting to Redis:", err);
 });
 
-app.use(catchErrors);
+// app.use(catchErrors);
