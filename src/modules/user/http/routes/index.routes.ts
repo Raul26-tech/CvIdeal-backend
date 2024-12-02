@@ -7,8 +7,4 @@ export const userRoutes = Router();
 
 const createUserController = container.resolve(CreateUserController);
 
-userRoutes.post(
-  "/",
-  isAuthenticated,
-  createUserController.handle.bind(createUserController)
-);
+userRoutes.post("/", createUserController.handle.bind(createUserController));
