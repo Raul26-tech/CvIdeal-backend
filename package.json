@@ -3,6 +3,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
+    "start": "node dist/framework/http/server.js",
     "dev": "tsnd --respawn -r tsconfig-paths/register --transpile-only src/framework/http/server.ts",
     "prod": "tsc && tsc-alias && ENVIRONMENT=prod node dist/framework/http/server.js",
     "build": "rm -rf dist && tsc && tsc-alias",
