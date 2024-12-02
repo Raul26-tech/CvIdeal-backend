@@ -1,5 +1,5 @@
 import "express-async-errors";
-import express from "express";
+import express, { ErrorRequestHandler } from "express";
 import { connectDatabase } from "../db/connect.db";
 import cors from "cors";
 import "src/framework/container/inversify.config.ts";
@@ -31,4 +31,4 @@ redisClient.on("error", (err) => {
   console.error("Error connecting to Redis:", err);
 });
 
-// app.use(catchErrors);
+app.use(catchErrors as unknown as ErrorRequestHandler);
