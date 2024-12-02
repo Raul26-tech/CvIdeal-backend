@@ -5,7 +5,7 @@
     "test": "jest",
     "dev": "tsnd --respawn -r tsconfig-paths/register --transpile-only src/framework/http/server.ts",
     "prod": "tsc && tsc-alias && ENVIRONMENT=prod node dist/framework/http/server.js",
-    "build": "sudo rm -rf dist && tsc && tsc-alias",
+    "build": "rm -rf dist && tsc && tsc-alias",
     "typeorm": "yarn build && typeorm -d dist/framework/db/connect.cli.js",
     "show": "yarn build && yarn typeorm -d dist/framework/db/connect.cli.js migration:show",
     "revert": "yarn build && yarn typeorm -d dist/framework/db/connect.cli.js migration:show"
