@@ -7,6 +7,7 @@
     "prod": "tsc && tsc-alias && ENVIRONMENT=prod node dist/framework/http/server.js",
     "build": "rm -rf dist && tsc && tsc-alias",
     "typeorm": "yarn build && typeorm -d dist/framework/db/connect.cli.js",
+    "vercel-build": "yarn typeorm migration:run",
     "show": "yarn build && yarn typeorm -d dist/framework/db/connect.cli.js migration:show",
     "revert": "yarn build && yarn typeorm -d dist/framework/db/connect.cli.js migration:show"
   },
