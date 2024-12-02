@@ -24,8 +24,6 @@ export class VerifyTokenService {
 
     const [, token] = bearerToken.split(" ");
 
-    console.log(token);
-
     // Verificar o token
     let payload: Payload;
     try {
